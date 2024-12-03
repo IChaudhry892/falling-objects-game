@@ -62,12 +62,14 @@ class fallingObject(object):
         screen.blit(self.image, (self.x, self.y)) #draws object to screen
 
     def checkCollision(self, player):
-        if (self.x < player.x + player.width and
-            self.x + self.width > player.x and
-            self.y < player.y + player.height and
-            self.y + self.height > player.y):
+        #(x, y) is the top-left corner of an object
+        if (self.x < player.x + player.width and # left edge of falling object is to the left of the player's right edge
+            self.x + self.width > player.x and # right edge of falling object is to the right of the player's left edge
+            self.y < player.y + player.height and # top edge of falling object is above the player's bottom edge
+            self.y + self.height > player.y): # bottom edge of falling object is below the player's top edge
+            #if all these conditions are true, the falling object's rectangle is inside the player's rectangle
             self.sound.play()
-            return True
+            return True # collision detected
         return False
 
 # Game variables
